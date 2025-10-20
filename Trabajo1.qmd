@@ -233,3 +233,193 @@ print(resultados_todos)
 La decisión final es la alternativa Campaña Publicitaria Agresiva ($d_1$), ya que es seleccionada
 por el mayor número de criterios (4 de 6) según el conteo de 'Veces Optima' en la tabla consolidada,
 lo que la convierte en la opción más robusta bajo diferentes enfoques de incertidumbre.
+
+# Problemas Miguel Domínguez Jiménez
+
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Problema 1: Inversión en Energía Solar 
+
+---
+
+Contexto: Un inversor debe decidir entre cuatro alternativas para instalar paneles solares en una nueva área residencial, basándose en el retorno económico (en miles de euros) que obtendría. El futuro económico de la zona es incierto y se han identificado cuatro posibles escenarios (estados de la naturaleza).
+
+**Alternativas (d_i):**  
+- d_1 (Estructura Básica): Instalación con componentes estándar.  
+- d_2 (Estructura Premium): Instalación con componentes de alta eficiencia.  
+- d_3 (Estructura Mixta): Combinación de componentes estándar y alta eficiencia.  
+- d_4 (No Invertir): Mantener el capital en un activo seguro.
+
+**Estados de la Naturaleza (e_j):**  
+- e_1 (Bajo Crecimiento): Poca demanda de energía solar.  
+- e_2 (Crecimiento Medio): Demanda moderada.  
+- e_3 (Alto Crecimiento): Fuerte demanda y altos precios de la energía.  
+- e_4 (Recesión): Caída de precios y baja demanda.
+
+| Alternativa | e1 (Bajo) | e2 (Medio) | e3 (Alto) | e4 (Recesión) |
+|-------------|------------|------------|-----------|---------------|
+| d1 (Básica) | 20         | 50         | 110       | -10           |
+| d2 (Premium)| 10         | 60         | 150       | -40           |
+| d3 (Mixta)  | 15         | 70         | 90        | -5            |
+| d4 (No Invertir)| 30      | 30         | 30        | 30            |
+
+
+---
+
+## Definición de la tabla
+
+```{r}
+source("teoriadecision_funciones_incertidumbre_nuevo.R")
+
+valores_P1 = c(20, 50, 110, -10, 
+               10, 60, 150, -40, 
+               15, 70, 90, -5, 
+               30, 30, 30, 30)
+
+tablaX_P1 = crea.tablaX(vector_matporfilas = valores_P1,
+                        numalternativas = 4,
+                        numestados = 4,
+                        nb_alternativas = c('d1_Basica', 'd2_Premium', 'd3_Mixta', 'd4_NoInvertir'),
+                        nb_estados = c('e1_Bajo', 'e2_Medio', 'e3_Alto', 'e4_Recesion'))
+
+cat("Tabla de Decisión del Problema 1:\n")
+print(tablaX_P1)
+```
+
+---
+
+## Resolución en situación favorable (beneficios)
+
+Objetivo: **MAXIMIZAR**
+
+```{r}
+res_wald_fav = criterio.Wald(tablaX_P1, favorable = TRUE)
+res_opt_fav = criterio.Optimista(tablaX_P1, favorable = TRUE)
+res_hurwicz_fav = criterio.Hurwicz(tablaX_P1, alfa = 0.5, favorable = TRUE)
+res_savage_fav = criterio.Savage(tablaX_P1, favorable = TRUE)
+res_laplace_fav = criterio.Laplace(tablaX_P1, favorable = TRUE)
+res_ideal_fav = criterio.PuntoIdeal(tablaX_P1, favorable = TRUE)
+
+resultados_fav = data.frame(
+  Criterio = c("Wald (Maximin)", "Optimista (Maximax)", "Hurwicz (α=0.5)",
+               "Savage (Minimax Arrep.)", "Laplace (Media)", "Punto Ideal"),
+  Alt_Optima = c(names(res_wald_fav$AlternativaOptima[1]),
+                 names(res_opt_fav$AlternativaOptima[1]),
+                 names(res_hurwicz_fav$AlternativaOptima[1]),
+                 names(res_savage_fav$AlternativaOptima[1]),
+                 names(res_laplace_fav$AlternativaOptima[1]),
+                 names(res_ideal_fav$AlternativaOptima[1]))
+)
+
+print(resultados_fav)
+```
+
+---
+
+## Resolución en situación desfavorable (costes)
+
+Objetivo: **MINIMIZAR**
+
+```{r}
+res_wald_desf = criterio.Wald(tablaX_P1, favorable = FALSE)
+res_opt_desf = criterio.Optimista(tablaX_P1, favorable = FALSE)
+res_hurwicz_desf = criterio.Hurwicz(tablaX_P1, alfa = 0.5, favorable = FALSE)
+res_savage_desf = criterio.Savage(tablaX_P1, favorable = FALSE)
+res_laplace_desf = criterio.Laplace(tablaX_P1, favorable = FALSE)
+res_ideal_desf = criterio.PuntoIdeal(tablaX_P1, favorable = FALSE)
+
+resultados_desf = data.frame(
+  Criterio = c("Wald (Minimax)", "Optimista (Minimin)", "Hurwicz (α=0.5)",
+               "Savage (Minimax Arrep.)", "Laplace (Media)", "Punto Ideal"),
+  Alt_Optima = c(names(res_wald_desf$AlternativaOptima[1]),
+                 names(res_opt_desf$AlternativaOptima[1]),
+                 names(res_hurwicz_desf$AlternativaOptima[1]),
+                 names(res_savage_desf$AlternativaOptima[1]),
+                 names(res_laplace_desf$AlternativaOptima[1]),
+                 names(res_ideal_desf$AlternativaOptima[1]))
+)
+
+print(resultados_desf)
+```
+
+---
+
+## Conclusión final del Problema 1
+
+La **DECISIÓN FINAL** en situación **FAVORABLE (Beneficios)** depende del riesgo, en este caso la alternativa **d2_Premium** (3/6) sería con la que se obtendría el máximo beneficio (Optimista/Hurwicz).  
+
+
+La **DECISIÓN FINAL** en situación **DESFAVORABLE (Costes)** sería la alternativa **d4_NoInvertir**, dado que es la opción de mayor consenso (4/6), incluyendo los criterios más robustos (Wald y Laplace) en un escenario de costes.  
+
+---
+
+# Problema 2: Lanzamiento de un Nuevo Producto de Software
+
+---
+
+## Enunciado del problema
+
+Contexto: Una pequeña empresa de desarrollo de software, Innovatech, ha creado una nueva aplicación. El CEO debe decidir entre tres estrategias de lanzamiento, cada una con un coste y un retorno potencial diferentes, dependiendo de la reacción del mercado.  
+
+**Alternativas (d_i):**  
+- d_1 (Lanzamiento Suave): Campaña de marketing limitada y bajo precio inicial.  
+- d_2 (Lanzamiento Agresivo): Gran inversión en publicidad y precio competitivo.  
+- d_3 (Lanzamiento de Nicho): Enfocarse solo en un segmento especializado con precio premium.  
+
+**Estados de la Naturaleza (e_j):**  
+- e_1 (Mercado Receptivo): Los usuarios adoptan el producto rápidamente.  
+- e_2 (Competencia Feroz): Un gran competidor lanza un producto similar al mismo tiempo.  
+- e_3 (Mercado Escéptico): Los usuarios tardan en adoptar nuevas tecnologías.
+
+| Alternativa | e1 (Receptivo) | e2 (Competencia) | e3 (Escéptico) |
+|-------------|----------------|-----------------|----------------|
+| d1 (Suave)  | 180            | 60              | 100            |
+| d2 (Agresivo)| 250           | 20              | 50             |
+| d3 (Nicho)  | 130            | 135              | 140            |
+
+---
+
+## Definición de la tabla modificada final
+
+```{r}
+source("teoriadecision_funciones_incertidumbre_nuevo.R")
+
+valores_P2_SOLUCION = c(180, 60, 100,      
+                        250, 20, 50, 
+                        130, 135, 140)    
+
+tablaX_P2_SOLUCION = crea.tablaX(vector_matporfilas = valores_P2_SOLUCION,
+                                 numalternativas = 3,
+                                 numestados = 3,
+                                 nb_alternativas = c('d1_Suave', 'd2_Agresivo', 'd3_Nicho'),
+                                 nb_estados = c('e1_Receptivo', 'e2_Competencia', 'e3_Esceptico'))
+
+cat("Tabla de Decisión del Problema 2 (Modificación Definitiva):\n")
+print(tablaX_P2_SOLUCION)
+```
+
+---
+
+## Resolución con función única (criterio.Todos)
+
+Se utiliza **α = 0.5** y **favorable = TRUE (Beneficios)**
+
+```{r}
+res_todos_P2_SOLUCION = criterio.Todos(tablaX_P2_SOLUCION, alfa = 0.5, favorable = TRUE)
+print(res_todos_P2_SOLUCION)
+```
+
+---
+
+## Conclusión final del Problema 2
+
+La **DECISIÓN FINAL** se basa en el consenso de los criterios (“Veces Óptima”).  
+
+Al ser **d3_Nicho** la alternativa seleccionada por la mayoría de los criterios (3 de 6), se establece como la opción de mayor **consenso**.  
+
+**Recomendación:** La empresa *Innovatech* debe optar por el **Lanzamiento de Nicho (d3_Nicho)**, ya que es la estrategia más robusta y consistente bajo condiciones de incertidumbre.
