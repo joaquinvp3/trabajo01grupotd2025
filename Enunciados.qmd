@@ -1,0 +1,48 @@
+---
+title: "Resolución del Trabajo: Métodos de Decisión bajo Incertidumbre"
+author: "Grupo 9"
+format:
+  html:
+    toc: true
+    code-fold: false
+  pdf:
+    toc: true
+---
+
+# Problemas Francisco Javier López León
+
+# Problema 1: Inversión en Start-up de Tecnología (Beneficios/Costes)
+
+## 1.1 Enunciado y Matriz de Decisión
+
+### Enunciado
+
+Una inversora ángel está considerando tres opciones de inversión: Inteligencia Artificial (IA), Ciberseguridad (CS), y Realidad Virtual (RV). Los posibles estados de la naturaleza (inciertos) son: "Mercado en Auge" ($E_1$), "Mercado Estancado" ($E_2$), y "Crisis Tecnológica" ($E_3$).
+
+El objetivo es determinar la mejor alternativa de inversión utilizando cada método por separado, tanto en situación favorable (beneficios) como desfavorable (costes).
+
+### Tabla de Decisión (Beneficios en miles de €)
+
+| Alternativa | Mercado en Auge ($E_1$) | Mercado Estancado ($E_2$) | Crisis Tecnológica ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Invertir en IA ($d_1$) | 100 | 40 | -10 |
+| Invertir en CS ($d_2$) | 60 | 50 | 0 |
+| Invertir en RV ($d_3$) | 150 | 10 | -50 |
+
+# Problema 2: Lanzamiento de un Nuevo Producto (Cuota de Mercado)
+
+## 2.1 Enunciado y Matriz de Decisión
+
+### Enunciado
+
+Una empresa de alimentación está decidiendo la estrategia para el lanzamiento de una nueva línea de snacks saludables. Se consideran tres alternativas de estrategia: Campaña Publicitaria Agresiva ($d_1$), Lanzamiento Suave y Progresivo ($d_2$), y Focalización en Redes Sociales ($d_3$). Los estados de la naturaleza son: "Competencia Fuerte" ($E_1$), "Recepción Media" ($E_2$), y "Tendencia Saludable" ($E_3$).
+
+El objetivo es determinar la mejor alternativa utilizando la función R que devuelve la resolución de todos los métodos en una única tabla (`criterio.Todos`), en situación favorable (cuota de mercado).
+
+### Tabla de Decisión (Cuota de Mercado en %)
+
+| Alternativa | Competencia Fuerte ($E_1$) | Recepción Media ($E_2$) | Tendencia Saludable ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Agresiva ($d_1$) | 10 | 18 | 25 |
+| Suave ($d_2$) | 5 | 15 | 30 |
+| Redes Sociales ($d_3$) | 12 | 16 | 20 |
