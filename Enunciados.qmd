@@ -46,3 +46,51 @@ El objetivo es determinar la mejor alternativa utilizando la función R que devu
 | Agresiva ($d_1$) | 10 | 18 | 25 |
 | Suave ($d_2$) | 5 | 15 | 30 |
 | Redes Sociales ($d_3$) | 12 | 16 | 20 |
+
+# Problemas Miguel Domínguez Jiménez
+
+# Problema 1: Inversión en Energía Solar 
+
+Contexto: Un inversor debe decidir entre cuatro alternativas para instalar paneles solares en una nueva área residencial, basándose en el retorno económico (en miles de euros) que obtendría. El futuro económico de la zona es incierto y se han identificado cuatro posibles escenarios (estados de la naturaleza).
+
+**Alternativas (d_i):**  
+- d_1 (Estructura Básica): Instalación con componentes estándar.  
+- d_2 (Estructura Premium): Instalación con componentes de alta eficiencia.  
+- d_3 (Estructura Mixta): Combinación de componentes estándar y alta eficiencia.  
+- d_4 (No Invertir): Mantener el capital en un activo seguro.
+
+**Estados de la Naturaleza (e_j):**  
+- e_1 (Bajo Crecimiento): Poca demanda de energía solar.  
+- e_2 (Crecimiento Medio): Demanda moderada.  
+- e_3 (Alto Crecimiento): Fuerte demanda y altos precios de la energía.  
+- e_4 (Recesión): Caída de precios y baja demanda.
+
+| Alternativa | e1 (Bajo) | e2 (Medio) | e3 (Alto) | e4 (Recesión) |
+|-------------|------------|------------|-----------|---------------|
+| d1 (Básica) | 20         | 50         | 110       | -10           |
+| d2 (Premium)| 10         | 60         | 150       | -40           |
+| d3 (Mixta)  | 15         | 70         | 90        | -5            |
+| d4 (No Invertir)| 30      | 30         | 30        | 30            |
+
+
+# Problema 2: Lanzamiento de un Nuevo Producto de Software
+
+Contexto: Una pequeña empresa de desarrollo de software, Innovatech, ha creado una nueva aplicación. El CEO debe decidir entre tres estrategias de lanzamiento, cada una con un coste y un retorno potencial diferentes, dependiendo de la reacción del mercado.  
+
+**Alternativas (d_i):**  
+- d_1 (Lanzamiento Suave): Campaña de marketing limitada y bajo precio inicial.  
+- d_2 (Lanzamiento Agresivo): Gran inversión en publicidad y precio competitivo.  
+- d_3 (Lanzamiento de Nicho): Enfocarse solo en un segmento especializado con precio premium.  
+
+**Estados de la Naturaleza (e_j):**  
+- e_1 (Mercado Receptivo): Los usuarios adoptan el producto rápidamente.  
+- e_2 (Competencia Feroz): Un gran competidor lanza un producto similar al mismo tiempo.  
+- e_3 (Mercado Escéptico): Los usuarios tardan en adoptar nuevas tecnologías.
+
+| Alternativa | e1 (Receptivo) | e2 (Competencia) | e3 (Escéptico) |
+|-------------|----------------|-----------------|----------------|
+| d1 (Suave)  | 180            | 60              | 100            |
+| d2 (Agresivo)| 250           | 20              | 50             |
+| d3 (Nicho)  | 130            | 135              | 140            |
+
+
