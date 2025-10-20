@@ -35,7 +35,6 @@ La coordinación del proyecto se centró en la integración de las contribucione
 | :--- | :--- |
 | **enunciados.qmd** | Documento Quarto que incluye exclusivamente los **4 enunciados** de los problemas inventados por el grupo. |
 | **Trabajo1.qmd** | Documento Quarto con la **resolución de los 4 problemas**, la matriz de decisión consolidada, el código R de resolución y las conclusiones finales. |
-| **teoriadecision\_funciones\_incertidumbre.R** | Archivo de funciones R de la asignatura. |
 | **README.md** | Documento actual con la descripción del trabajo, los integrantes y la organización. |
 
 ---
