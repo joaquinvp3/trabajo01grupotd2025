@@ -274,7 +274,7 @@ Contexto: Un inversor debe decidir entre cuatro alternativas para instalar panel
 ## Definición de la tabla
 
 ```{r}
-source("teoriadecision_funciones_incertidumbre_nuevo.R")
+source("teoriadecision_funciones_incertidumbre.R")
 
 valores_P1 = c(20, 50, 110, -10, 
                10, 60, 150, -40, 
@@ -387,7 +387,7 @@ Contexto: Una pequeña empresa de desarrollo de software, Innovatech, ha creado 
 ## Definición de la tabla modificada final
 
 ```{r}
-source("teoriadecision_funciones_incertidumbre_nuevo.R")
+source("teoriadecision_funciones_incertidumbre.R")
 
 valores_P2_SOLUCION = c(180, 60, 100,      
                         250, 20, 50, 
