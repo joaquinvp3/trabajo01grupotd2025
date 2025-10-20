@@ -1,0 +1,235 @@
+---
+title: "Resolución del Trabajo: Métodos de Decisión bajo Incertidumbre"
+author: "Grupo 9"
+format:
+  html:
+    toc: true
+    code-fold: false
+  pdf:
+    toc: true
+---
+# Problemas Francisco Javier López León
+
+# Configuración Inicial y Funciones
+
+Cargamos el archivo de funciones necesario para ejecutar todos los criterios de decisión bajo incertidumbre.
+
+```{r}
+source("teoriadecision_funciones_incertidumbre.R")
+```
+
+# Problema 1: Inversión en Start-up de Tecnología (Beneficios/Costes)
+
+## 1.1 Enunciado y Matriz de Decisión
+
+### Enunciado
+
+Una inversora ángel está considerando tres opciones de inversión: Inteligencia Artificial (IA), Ciberseguridad (CS), y Realidad Virtual (RV). Los posibles estados de la naturaleza (inciertos) son: "Mercado en Auge" ($E_1$), "Mercado Estancado" ($E_2$), y "Crisis Tecnológica" ($E_3$).
+
+El objetivo es determinar la mejor alternativa de inversión utilizando cada método por separado, tanto en situación favorable (beneficios) como desfavorable (costes).
+
+### Tabla de Decisión (Beneficios en miles de €)
+
+| Alternativa | Mercado en Auge ($E_1$) | Mercado Estancado ($E_2$) | Crisis Tecnológica ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Invertir en IA ($d_1$) | 100 | 40 | -10 |
+| Invertir en CS ($d_2$) | 60 | 50 | 0 |
+| Invertir en RV ($d_3$) | 150 | 10 | -50 |
+
+### Definición y Creación de la Matriz
+
+```{r}
+
+# Matriz de decisión (por filas): IA, CS, RV y por columnas: Auge, Estancado, Crisis
+vector_datos_P1 = c(100, 40, -10,
+                    60, 50, 0,
+                    150, 10, -50)
+alternativas_P1 = c("IA", "Ciberseguridad", "RV")
+estados_P1 = c("Auge", "Estancado", "Crisis")
+
+# Crear la tabla de decisión
+X_P1 = crea.tablaX(vector_datos_P1, numalternativas = 3, numestados = 3,
+                   nb_alternativas = alternativas_P1, nb_estados = estados_P1)
+
+# Mostrar la tabla
+print(X_P1)
+
+```
+
+### Aplicación de métodos individuales (FAVORABLE = BENEFICIOS)
+
+#### 1. Criterio de Wald (Pesimista) - Favorable
+
+```{r}
+
+res_wald_fav = criterio.Wald(X_P1, favorable = TRUE)
+print(res_wald_fav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_wald_fav$AlternativaOptima), "con un valor de", res_wald_fav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es Ciberseguridad ($d_2$).")
+
+```
+
+#### 2. Criterio Optimista (Maximax) - Favorable
+
+```{r}
+
+res_optimista_fav = criterio.Optimista(X_P1, favorable = TRUE)
+print(res_optimista_fav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_optimista_fav$AlternativaOptima), "con un valor de", res_optimista_fav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es RV ($d_3$).")
+
+```
+
+#### 3. Criterio de Hurwicz (alfa = 0.6) - Favorable
+
+```{r}
+alfa_P1 = 0.6
+res_hurwicz_fav = criterio.Hurwicz(X_P1, alfa = alfa_P1, favorable = TRUE)
+print(res_hurwicz_fav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_hurwicz_fav$AlternativaOptima), "con un valor de", res_hurwicz_fav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es IA ($d_1$).")
+```
+
+#### 4. Criterio de Savage (Minimax arrepentimiento) - Favorable
+
+```{r}
+res_savage_fav = criterio.Savage(X_P1, favorable = TRUE)
+print(res_savage_fav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_savage_fav$AlternativaOptima), "con un valor de", res_savage_fav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es IA ($d_1$).")
+```
+
+#### 5. Criterio de Laplace (Igual probabilidad) - Favorable
+
+```{r}
+res_laplace_fav = criterio.Laplace(X_P1, favorable = TRUE)
+print(res_laplace_fav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_laplace_fav$AlternativaOptima), "con un valor de", res_laplace_fav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es IA ($d_1$).")
+```
+
+#### 6. Criterio del Punto Ideal - Favorable
+
+```{r}
+res_ideal_fav = criterio.PuntoIdeal(X_P1, favorable = TRUE)
+print(res_ideal_fav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_ideal_fav$AlternativaOptima), "con una distancia mínima de", res_ideal_fav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es IA ($d_1$).")
+```
+
+### Aplicación de métodos individuales (DESFAVORABLE = COSTES)
+
+#### 1. Criterio de Wald (Pesimista) - Desfavorable
+
+```{r}
+
+res_wald_desfav = criterio.Wald(X_P1, favorable = FALSE)
+print(res_wald_desfav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_wald_desfav$AlternativaOptima), "con un valor de", res_wald_desfav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es IA ($d_1$).")
+
+```
+
+#### 2. Criterio Optimista (Maximax) - Desfavorable
+
+```{r}
+
+res_optimista_desfav = criterio.Optimista(X_P1, favorable = FALSE)
+print(res_optimista_desfav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_optimista_desfav$AlternativaOptima), "con un valor de", res_optimista_desfav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es RV ($d_3$).")
+
+```
+
+#### 3. Criterio de Hurwicz (alfa = 0.6) - Desfavorable
+
+```{r}
+res_hurwicz_desfav = criterio.Hurwicz(X_P1, alfa = alfa_P1, favorable = FALSE)
+print(res_hurwicz_desfav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_hurwicz_desfav$AlternativaOptima), "con un valor de", res_hurwicz_desfav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es RV ($d_3$).")
+```
+
+#### 4. Criterio de Savage (Minimax arrepentimiento) - Desfavorable
+
+```{r}
+res_savage_desfav = criterio.Savage(X_P1, favorable = FALSE)
+print(res_savage_desfav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_savage_desfav$AlternativaOptima), "con un valor de", res_savage_desfav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es IA ($d_1$).")
+```
+
+#### 5. Criterio de Laplace (Igual probabilidad) - Desfavorable
+
+```{r}
+res_laplace_desfav = criterio.Laplace(X_P1, favorable = FALSE)
+print(res_laplace_desfav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_laplace_desfav$AlternativaOptima), "con un valor de", res_laplace_desfav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es RV ($d_3$).")
+```
+
+#### 6. Criterio del Punto Ideal - Desfavorable
+
+```{r}
+res_ideal_desfav = criterio.PuntoIdeal(X_P1, favorable = FALSE)
+print(res_ideal_desfav$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_ideal_desfav$AlternativaOptima), "con una distancia mínima de", res_ideal_desfav$ValorOptimo))
+print("CONCLUSIÓN: La alternativa óptima es RV ($d_3$).")
+```
+
+## Conclusión general problema 1
+- La decisión más robusta en situación favorable (beneficios) es **Invertir en IA ($d_1$)** (4/6 criterios).
+- La decisión en situación desfavorable (costes) se inclina por **Invertir en RV ($d_3$)** (4/6 criterios).
+
+# Problema 2: Lanzamiento de un Nuevo Producto (Cuota de Mercado)
+
+## 2.1 Enunciado y Matriz de Decisión
+
+### Enunciado
+
+Una empresa de alimentación está decidiendo la estrategia para el lanzamiento de una nueva línea de snacks saludables. Se consideran tres alternativas de estrategia: Campaña Publicitaria Agresiva ($d_1$), Lanzamiento Suave y Progresivo ($d_2$), y Focalización en Redes Sociales ($d_3$). Los estados de la naturaleza son: "Competencia Fuerte" ($E_1$), "Recepción Media" ($E_2$), y "Tendencia Saludable" ($E_3$).
+
+El objetivo es determinar la mejor alternativa utilizando la función R que devuelve la resolución de todos los métodos en una única tabla (`criterio.Todos`), en situación favorable (cuota de mercado).
+
+### Tabla de Decisión (Cuota de Mercado en %)
+
+| Alternativa | Competencia Fuerte ($E_1$) | Recepción Media ($E_2$) | Tendencia Saludable ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Agresiva ($d_1$) | 10 | 18 | 25 |
+| Suave ($d_2$) | 5 | 15 | 30 |
+| Redes Sociales ($d_3$) | 12 | 16 | 20 |
+
+### Definición y Creación de la Matriz
+
+```{r}
+# Matriz de decisión (por filas): Agresiva, Suave, Redes Sociales
+vector_datos_P2 = c(10, 18, 25,
+                    5, 15, 30,
+                    12, 16, 20)
+alternativas_P2 = c("Agresiva", "Suave", "Redes_Sociales")
+estados_P2 = c("Competencia_Fuerte", "Recepcion_Media", "Tendencia_Saludable")
+
+# Crear la tabla de decisión
+X_P2 = crea.tablaX(vector_datos_P2, numalternativas = 3, numestados = 3,
+                   nb_alternativas = alternativas_P2, nb_estados = estados_P2)
+
+# Mostrar la tabla
+print(X_P2)
+
+# Aplicar todos los criterios en situación favorable con alfa=0.5 para Hurwicz
+alfa_P2 = 0.5
+resultados_todos = criterio.Todos(X_P2, alfa = alfa_P2, favorable = TRUE)
+```
+
+### Resultados
+
+```{r}
+
+print(resultados_todos)
+
+```
+
+## Conclusión general problema 2
+La decisión final es la alternativa Campaña Publicitaria Agresiva ($d_1$), ya que es seleccionada
+por el mayor número de criterios (4 de 6) según el conteo de 'Veces Optima' en la tabla consolidada,
+lo que la convierte en la opción más robusta bajo diferentes enfoques de incertidumbre.
