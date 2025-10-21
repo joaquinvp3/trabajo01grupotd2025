@@ -423,3 +423,246 @@ La **DECISIÓN FINAL** se basa en el consenso de los criterios (“Veces Óptima
 Al ser **d3_Nicho** la alternativa seleccionada por la mayoría de los criterios (3 de 6), se establece como la opción de mayor **consenso**.  
 
 **Recomendación:** La empresa *Innovatech* debe optar por el **Lanzamiento de Nicho (d3_Nicho)**, ya que es la estrategia más robusta y consistente bajo condiciones de incertidumbre.
+
+# Problemas Cristina Fuqiao Romero Ríos
+
+#### **1. Una compañía tecnológica está valorando cinco estrategias para el lanzamiento de un nuevo teléfono inteligente. Dado que el mercado es muy incierto, se han definido seis posibles escenarios que reflejan distintas condiciones del entorno competitivo y económico.Los escenarios considerados son:**
+
+**e₁: Alta demanda y poca competencia.**
+
+**e₂: Demanda estable y competencia moderada.**
+
+**e₃: Aparición de nuevos competidores con precios bajos.**
+
+**e₄: Disminución del poder adquisitivo de los consumidores.**
+
+**e₅: Aceptación favorable por parte de los medios y clientes.**
+
+**e₆: Aumento de los costes de producción y distribución.**
+
+**La tabla siguiente muestra los valores estimados (en millones de euros) para cada estrategia y escenario:**
+
+|        | **e1** | **e2** | **e3** | **e4** | **e5** | **e6** |
+|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
+| **d1** | **9**  | **7**  | **3**  | **2**  | **6**  | **1**  |
+| **d2** | **12** | **6**  | **1**  | **2**  | **8**  | **3**  |
+| **d3** | **8**  | **6**  | **2**  | **3**  | **5**  | **4**  |
+| **d4** | **5**  | **4**  | **3**  | **3**  | **5**  | **4**  |
+| **d5** | **7**  | **6**  | **2**  | **2**  | **6**  | **5**  |
+
+**¿Cuál sería la opción que usted le recomendaría a la compañía si los valores fuesen ganancias? ¿Y si fuesen costes?**
+
+**a) Situación favorable (ganancias)**
+
+```{r}
+m1A <- crea.tablaX(c(9,7,3,2,6,1,
+                    12,6,1,2,8,3,
+                    8,6,2,3,5,4,
+                    5,4,3,3,5,4,
+                    7,6,2,2,6,5), numalternativas = 5,numestados = 6)
+m1A
+```
+
+-   Criterio de Wald:
+
+```{r}
+sol1a_W <- criterio.Wald(m1A, favorable = TRUE) 
+sol1a_W
+```
+
+La mejor alternativa según el criterio de Wald es la “d4”.
+
+-   Criterio Optimista:
+
+```{r}
+sol1a_O <- criterio.Optimista(m1A)
+sol1a_O
+```
+
+La mejor alternativa según el criterio Optimista es la “d2”.
+
+-   Criterio de Hurwicz:
+
+```{r}
+sol1a_H <- criterio.Hurwicz(m1A, favorable = TRUE)
+sol1a_H
+```
+
+La mejor alternativa según el criterio de Hurwicz es la “d2”.
+
+-   Criterio Savage:
+
+```{r}
+sol1a_S <- criterio.Savage(m1A)
+sol1a_S
+```
+
+La mejor alternativa según el criterio de Savage es la “d2”.
+
+-   Criterio de Laplace:
+
+```{r}
+sol1a_L <- criterio.Laplace(m1A)
+sol1a_L
+```
+
+La mejor alternativa según el criterio de Laplace es la “d2”.
+
+-   Criterio de Punto ideal:
+
+```{r}
+sol1a_PI <- criterio.PuntoIdeal(m1A, favorable = TRUE)
+sol1a_PI
+```
+
+La mejor alternativa según el criterio de Punto Ideal es la “d2”.
+
+Según el criterio Optimista, Hurwicz, Savage, LaPlace y el Punto Ideal, la mejor opción seria "d2". Sin embargo, según el criterio de Wald la mejor opción es el "d4." Entonces, la mayoría de criterios eligen "d2", la opción final es la estrategia 2.
+
+**b) Situación desfavorable (costes)**
+
+-   Criterio de Wald:
+
+```{r}
+sol1b_W <- criterio.Wald(m1A, favorable = FALSE) 
+sol1b_W
+```
+
+La mejor alternativa según el criterio de Wald es la “d4”.
+
+-   Criterio Optimista:
+
+```{r}
+sol1b_O <- criterio.Optimista(m1A, favorable = F)
+sol1b_O
+```
+
+La mejor alternativa según el criterio Optimista es la “d1” o “d2”.
+
+-   Criterio de Hurwicz:
+
+```{r}
+sol1b_H <- criterio.Hurwicz(m1A, favorable = F)
+sol1b_H
+```
+
+La mejor alternativa según el criterio de Hurwicz es la “d4”.
+
+-   Criterio Savage:
+
+```{r}
+sol1b_S <- criterio.Savage(m1A, favorable = F)
+sol1b_S
+```
+
+La mejor alternativa según el criterio de Savage es la “d3” o “d4”.
+
+-   Criterio de Laplace:
+
+```{r}
+sol1b_L <- criterio.Laplace(m1A, favorable = F)
+sol1b_L
+```
+
+La mejor alternativa según el criterio de Laplace es la “d4”.
+
+-   Criterio de Punto ideal:
+
+```{r}
+sol1b_PI <- criterio.PuntoIdeal(m1A, favorable = F)
+sol1b_PI
+```
+
+La mejor alternativa según el criterio de Punto Ideal es la “d4”.
+
+Según el criterio Optimista la mejor opción seria "d1" o "d2". Sin embargo, el resto de criterios coinciden escogiendo como la mejor estrategia la número 4. Por tanto, la estrategia que debe tomar la compañía es la 4.
+
+#### **2. Cristina está analizando la posibilidad de contratar un suministro de electricidad con una empresa privada. Se ha informado sobre tres compañías, que le han dado las siguientes condiciones:**
+
+-   **Electra Viva: cobra una tarifa base de 40 € al mes, más el consumo.**
+
+-   **LuzSolar: cobra una tarifa base de 25 € al mes, pero si el consumo supera los 300 kWh mensuales, aplica un suplemento de 0,20 € por cada kWh adicional.**
+
+-   **EcoVolt: cobra una tarifa base de 30 € al mes, y además ofrece un descuento del 20 % en la factura total si el mes es soleado debido a sus paneles solares.**
+
+**Cristina trabaja desde casa y, según el tipo de invierno que se presente, su consumo puede variar notablemente:**
+
+-   **Si el invierno es suave, consume unos 250 kWh/mes.**
+
+-   **Si el invierno es duro, su consumo sube a 400 kWh/mes.**
+
+-   **Si el invierno es soleado,consume 300 kWh/mes y podría beneficiarse del descuento de EcoVolt.**
+
+**Sabiendo que el precio medio del kWh es 0,25 €, Cristina quiere elegir la mejor compañía evaluando el coste total del suministro durante los próximos 6 meses, pero sin saber con certeza qué tipo de invierno tendrá.**
+
+Planteamiento:
+
+-   Un decisor.
+
+-   Modelo de costes (desfavorable)
+
+-   Alternativas:
+
+    -   d1 = “Electra Viva”
+
+    -   d2 = “LuzSolar”
+
+    -   d3 = “EcoVolt”
+
+-   Estados de la naturaleza:
+
+    -   e1 = “invierno suave”
+
+    -   e2 = “invierno duro”
+
+    -   e3 = "invierno soleado"
+
+-   Valoraciones:
+
+    -   Alternativa d1:
+
+        -   x1,1 =(40+(250*0.25))*6=615
+
+        -   x1,2 =(40+(400*0.25))*6=840
+
+        -   x1,3 =(40+(300*0.25))*6=690
+
+    -   Alternativa d2:
+
+        -   x2,1 =(25+(250*0.25))*6=525
+
+        -   x2,2 =(25+(400*0.25)+(100*0.20))*6=870
+
+        -   x2,3 =(25+(300*0.25))*6=600
+
+    -   Alternativa d3:
+
+      -   x3,1 =(30+(250*0.25))*6=555
+  
+      -   x3,2 =(30+(400*0.25))*6=780
+  
+      -   x3,3 =(30+(300*0.25))*6*0.8=504
+
+```{r}
+m11 <- (40+(250*0.25))*6 # d1, e1
+m12 <- (40+(400*0.25))*6# d1, e2
+m13 <- (40+(300*0.25))*6# d1, e3
+m21 <- (25+(250*0.25))*6 # d2, e1
+m22 <- (25+(400*0.25)+(100*0.20))*6 # d2, e2
+m23 <- (25+(300*0.25))*6 # d2, e2
+m31 <- (30+(250*0.25))*6 # d3, e1
+m32 <- (30+(400*0.25))*6 # d3, e2
+m33 <- (30+(300*0.25))*6*0.8 # d3, e3
+
+m2 <- crea.tablaX(c(m11,m12,m13,
+                    m21,m22,m23,
+                    m31,m32,m33),numalternativas = 3,numestados = 3,
+                    nb_alternativas = c("Electra Viva","LuzSolar","EcoVolt"),
+                    nb_estados = c("invierno suave","invierno duro", "invierno soleado"))
+m2
+
+criterio.Todos(m2,favorable = F)
+```
+
+La mejor decisión sería contratar la compañía EcoVolt ya que es la alternativa óptima en todos los criterios.
+
