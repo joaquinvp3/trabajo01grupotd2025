@@ -94,3 +94,53 @@ Contexto: Una pequeña empresa de desarrollo de software, Innovatech, ha creado 
 | d3 (Nicho)  | 130            | 135              | 140            |
 
 
+# Problemas Cristina Fuqiao Romero Ríos
+
+1. Una compañía tecnológica está valorando cinco estrategias para el lanzamiento de un nuevo teléfono inteligente. Dado que el mercado es muy incierto, se han definido seis posibles escenarios que reflejan distintas condiciones del entorno competitivo y económico.
+
+Los escenarios considerados son:
+
+e₁: Alta demanda y poca competencia.
+
+e₂: Demanda estable y competencia moderada.
+
+e₃: Aparición de nuevos competidores con precios bajos.
+
+e₄: Disminución del poder adquisitivo de los consumidores.
+
+e₅: Aceptación favorable por parte de los medios y clientes.
+
+e₆: Aumento de los costes de producción y distribución.
+
+La tabla siguiente muestra los valores estimados (en millones de euros) para cada estrategia y escenario:
+
+|     | e1  | e2  | e3  | e4  | e5  | e6  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| a1  |  9  |  7  |  3  |  2  |  6  |  1  |
+| a2  | 12  |  6  |  1  |  2  |  8  |  3  |
+| a3  |  8  |  6  |  2  |  3  |  5  |  4  |
+| a4  |  5  |  4  |  3  |  3  |  5  |  4  |
+| a5  |  7  |  6  |  2  |  2  |  6  |  5  |
+
+¿Cuál sería la opción que usted le recomendaría a la compañía si los valores fuesen ganancias? ¿Y si fuesen costes?
+
+2. Cristina está analizando la posibilidad de contratar un suministro de electricidad con una empresa privada. Se ha informado sobre tres compañías, que le han dado las siguientes condiciones:
+
+-   Electra Viva: cobra una tarifa base de 40 € al mes, más el consumo.
+
+-   LuzSolar: cobra una tarifa base de 25 € al mes, pero si el consumo supera los 300 kWh mensuales, aplica un suplemento de 0,20 € por cada kWh adicional.
+
+-   EcoVolt: cobra una tarifa base de 30 € al mes, y además ofrece un descuento del 20 % en la factura total si el mes es soleado debido a sus paneles solares.
+
+Cristina trabaja desde casa y, según el tipo de invierno que se presente, su consumo puede variar notablemente:
+
+-   Si el invierno es suave, consume unos 250 kWh/mes.
+
+-   Si el invierno es duro, su consumo sube a 400 kWh/mes.
+
+-   Si el invierno es soleado podría beneficiarse del descuento de EcoVolt.
+
+Sabiendo que el precio medio del kWh es 0,25 €, Cristina quiere elegir la mejor compañía evaluando el coste total del suministro durante los próximos 6 meses, pero sin saber con certeza qué tipo de invierno tendrá.
+
+
+
