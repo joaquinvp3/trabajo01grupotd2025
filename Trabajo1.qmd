@@ -666,3 +666,213 @@ criterio.Todos(m2,favorable = F)
 
 La mejor decisión sería contratar la compañía EcoVolt ya que es la alternativa óptima en todos los criterios.
 
+# Problemas Joaquín Vidal
+
+## Problema 1: Diseño de Red Logística
+
+### Enunciado
+Una empresa de **distribución** está valorando tres posibles configuraciones de su red logística: **Centro Único ($d_1$)**, **Dos Hubs Regionales ($d_2$)** y **Red Descentralizada ($d_3$)**.  
+Los **estados de la naturaleza** (inciertos) representan los distintos niveles de demanda que podrían producirse: **Alta Demanda ($E_1$)**, **Demanda Media ($E_2$)** y **Demanda Baja ($E_3$)**.
+
+El objetivo es determinar la **mejor alternativa de diseño logístico** aplicando los **criterios de decisión bajo incertidumbre**, tanto en **situación favorable (beneficios)** como en **situación desfavorable (costes)**.
+
+| Alternativa | Alta Demanda ($E_1$) | Demanda Media ($E_2$) | Demanda Baja ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Centro Único ($d_1$) | 95 | 62 | 25 |
+| Dos Hubs Regionales ($d_2$) | 78 | 70 | 52 |
+| Red Descentralizada ($d_3$) | 130 | 48 | -15 |
+
+### Matriz de decisión
+Tomamos las filas $d_1$, $d_2$, $d_3$ y las columnas $E_1$, $E_2$, $E_3$:
+
+```{r}
+vector_datos_P1_JV <- c(95, 62, 25,
+                        78, 70, 52,
+                        130, 48, -15)
+
+alternativas_P1_JV <- c("CU","2H","RD")
+estados_P1_JV      <- c("Alta","Media","Baja")
+```
+
+
+### Tabla de decisión
+Definimos nuestra tabla de decisión y la mostramos.
+```{r}
+X_P1_JV <- crea.tablaX(vector_datos_P1_JV,
+                       numalternativas = 3, numestados = 3,
+                       nb_alternativas = alternativas_P1_JV,
+                       nb_estados = estados_P1_JV)
+print(X_P1_JV)
+```
+
+
+
+### Aplicación de métodos individuales (FAVORABLE = BENEFICIOS)
+
+##### 1) Criterio de Wald (Pesimista) - Favorable
+```{r}
+res_wald_fav_JV <- criterio.Wald(X_P1_JV, favorable = TRUE)
+print(res_wald_fav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_wald_fav_JV$AlternativaOptima),
+            "con un valor de", res_wald_fav_JV$ValorOptimo))
+```
+
+
+##### 2) Criterio de Maximax (Optimista) - Favorable
+```{r}
+res_optimista_fav_JV <- criterio.Optimista(X_P1_JV, favorable = TRUE)
+print(res_optimista_fav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_optimista_fav_JV$AlternativaOptima),
+            "con un valor de", res_optimista_fav_JV$ValorOptimo))
+```
+
+
+##### 3) Criterio de Hurwicz (alfa = 0.6) - Favorable
+```{r}
+alfa_P1_JV <- 0.6
+res_hurwicz_fav_JV <- criterio.Hurwicz(X_P1_JV, alfa = alfa_P1_JV, favorable = TRUE)
+print(res_hurwicz_fav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_hurwicz_fav_JV$AlternativaOptima),
+            "con un valor de", res_hurwicz_fav_JV$ValorOptimo))
+```
+
+
+##### 4) Criterio de Savage (Minimax arrepentimiento) - Favorable
+```{r}
+res_savage_fav_JV <- criterio.Savage(X_P1_JV, favorable = TRUE)
+print(res_savage_fav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_savage_fav_JV$AlternativaOptima),
+            "con un valor de", res_savage_fav_JV$ValorOptimo))
+```
+
+
+##### 5) Criterio de Laplace (Igual probabilidad) - Favorable
+```{r}
+res_laplace_fav_JV <- criterio.Laplace(X_P1_JV, favorable = TRUE)
+print(res_laplace_fav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_laplace_fav_JV$AlternativaOptima),
+            "con un valor de", res_laplace_fav_JV$ValorOptimo))
+```
+
+
+##### 6) Criterio del Punto Ideal - Favorable
+```{r}
+res_ideal_fav_JV <- criterio.PuntoIdeal(X_P1_JV, favorable = TRUE)
+print(res_ideal_fav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_ideal_fav_JV$AlternativaOptima),
+            "con una distancia mínima de", res_ideal_fav_JV$ValorOptimo))
+```
+
+#### Conclusión
+Los criterios se reparten así: Wald y Laplace → 2H, Maximax y Hurwicz → RD, Savage y Punto Ideal → CU (empate 2–2–2).
+Dado el empate, opto por Dos Hubs Regionales (2H) como decisión más robusta: maximiza el peor caso (52, elegido por Wald) y también la media (66,67, elegido por Laplace), ofreciendo un equilibrio entre rendimiento esperado y protección ante escenarios adversos. CU minimiza arrepentimiento y distancia al ideal, pero presenta un peor “worst-case” (25) y menor media; RD maximiza el potencial (130) pero es muy arriesgada en baja demanda (−15).
+
+
+### Aplicación de métodos individuales (DESFAVORABLE = COSTES)
+
+##### 1) Criterio de Wald (Pesimista) - Desfavorable
+```{r}
+res_wald_desfav_JV <- criterio.Wald(X_P1_JV, favorable = FALSE)
+print(res_wald_desfav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_wald_desfav_JV$AlternativaOptima),
+            "con un valor de", res_wald_desfav_JV$ValorOptimo))
+```
+
+
+##### 2) Criterio Optimista (Minimin) - Desfavorable
+```{r}
+res_optimista_desfav_JV <- criterio.Optimista(X_P1_JV, favorable = FALSE)
+print(res_optimista_desfav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_optimista_desfav_JV$AlternativaOptima),
+            "con un valor de", res_optimista_desfav_JV$ValorOptimo))
+```
+
+
+##### 3) Criterio de Hurwicz (alfa = 0.6) - Desfavorable
+```{r}
+res_hurwicz_desfav_JV <- criterio.Hurwicz(X_P1_JV, alfa = alfa_P1_JV, favorable = FALSE)
+print(res_hurwicz_desfav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_hurwicz_desfav_JV$AlternativaOptima),
+            "con un valor de", res_hurwicz_desfav_JV$ValorOptimo))
+```
+
+
+##### 4) Criterio de Savage (Minimax arrepentimiento) - Desfavorable
+```{r}
+res_savage_desfav_JV <- criterio.Savage(X_P1_JV, favorable = FALSE)
+print(res_savage_desfav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_savage_desfav_JV$AlternativaOptima),
+            "con un valor de", res_savage_desfav_JV$ValorOptimo))
+```
+
+
+##### 5) Criterio de Laplace - Desfavorable
+```{r}
+res_laplace_desfav_JV <- criterio.Laplace(X_P1_JV, favorable = FALSE)
+print(res_laplace_desfav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_laplace_desfav_JV$AlternativaOptima),
+            "con un valor de", res_laplace_desfav_JV$ValorOptimo))
+```
+
+
+##### 6) Criterio del Punto Ideal - Desfavorable
+```{r}
+res_ideal_desfav_JV <- criterio.PuntoIdeal(X_P1_JV, favorable = FALSE)
+print(res_ideal_desfav_JV$ValorAlternativas)
+print(paste("Decisión óptima:", names(res_ideal_desfav_JV$AlternativaOptima),
+            "con una distancia mínima de", res_ideal_desfav_JV$ValorOptimo))
+```
+
+#### Conclusión
+Reparto de criterios: RD (Maximin/Optimista–minimin, Hurwicz, Laplace) → 3; CU (Savage, Punto Ideal) → 2; 2H (Wald) → 1.
+Por tanto, la alternativa preferente es Red Descentralizada (RD): logra la menor media de costes (≈ 54.33) y el mejor caso (−15), siendo la más votada (3/6).
+
+
+## Problema 2: Selección de Estrategia de Precios
+
+### Enunciado
+
+Una empresa de e-commerce va a lanzar una nueva línea de productos y debe seleccionar una **estrategia de precios** entre: **Precio Premium ($d_1$)**, **Precio Competitivo ($d_2$)** y **Precio de Penetración ($d_3$)**.  
+Los **estados de la naturaleza** (inciertos) representan la reacción del mercado: **Competencia Agresiva ($E_1$)**, **Competencia Moderada ($E_2$)** y **Competencia Pasiva ($E_3$)**.
+
+El objetivo es determinar la **mejor alternativa de precios** utilizando la **función global** que aplica todos los métodos de decisión bajo incertidumbre de forma conjunta, en **situación favorable** (cuota de mercado esperada, en %).
+
+| Alternativa | Competencia Agresiva ($E_1$) | Competencia Moderada ($E_2$) | Competencia Pasiva ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Precio Premium ($d_1$) | 8 | 14 | 22 |
+| Precio Competitivo ($d_2$) | 10 | 17 | 20 |
+| Precio de Penetración ($d_3$) | 13 | 19 | 24 |
+
+### Matriz de decisión
+
+Tomamos las filas $d_1$, $d_2$, $d_3$ y las columnas $E_1$, $E_2$, $E_3$:
+```{r}
+vector_datos_P2_JV <- c(8,14,22,
+                        10,17,20,
+                        13,19,24)
+
+alternativas_P2_JV <- c("Premium","Competitivo","Penetracion")
+estados_P2_JV      <- c("Comp_Agresiva","Comp_Moderada","Comp_Pasiva")
+
+X_P2_JV <- crea.tablaX(vector_datos_P2_JV,
+                       numalternativas = 3, numestados = 3,
+                       nb_alternativas = alternativas_P2_JV,
+                       nb_estados = estados_P2_JV)
+
+print(X_P2_JV)
+```
+
+
+### Aplicación de todos los criterios
+```{r}
+alfa_P2_JV <- 0.5  # coeficiente de optimismo para Hurwicz
+resultados_todos_P2_JV <- criterio.Todos(X_P2_JV, alfa = alfa_P2_JV, favorable = TRUE)
+print(resultados_todos_P2_JV)
+```
+
+### Conclusión
+
+De acuerdo con los resultados obtenidos, los seis criterios de decisión bajo incertidumbre (Wald, Optimista, Hurwicz, Savage, Laplace y Punto Ideal) seleccionan la alternativa Precio de Penetración ($d_3$) como opción óptima.
+
+Esta estrategia presenta la mayor cuota de mercado esperada en los escenarios de competencia moderada y pasiva, y además mantiene un buen comportamiento incluso ante competencia agresiva.
+

@@ -142,5 +142,32 @@ Cristina trabaja desde casa y, según el tipo de invierno que se presente, su co
 
 Sabiendo que el precio medio del kWh es 0,25 €, Cristina quiere elegir la mejor compañía evaluando el coste total del suministro durante los próximos 6 meses, pero sin saber con certeza qué tipo de invierno tendrá.
 
+# Enunciados Joaquín Vidal
+
+## Problema 1: Diseño de Red Logística
+
+Una empresa de **distribución** está valorando tres posibles configuraciones de su red logística: **Centro Único ($d_1$)**, **Dos Hubs Regionales ($d_2$)** y **Red Descentralizada ($d_3$)**.  
+Los **estados de la naturaleza** (inciertos) representan los distintos niveles de demanda que podrían producirse: **Alta Demanda ($E_1$)**, **Demanda Media ($E_2$)** y **Demanda Baja ($E_3$)**.
+
+El objetivo es determinar la **mejor alternativa de diseño logístico** aplicando los **criterios de decisión bajo incertidumbre**, tanto en **situación favorable (beneficios)** como en **situación desfavorable (costes)**.
+
+| Alternativa | Alta Demanda ($E_1$) | Demanda Media ($E_2$) | Demanda Baja ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Centro Único ($d_1$) | 95 | 62 | 25 |
+| Dos Hubs Regionales ($d_2$) | 78 | 70 | 52 |
+| Red Descentralizada ($d_3$) | 130 | 48 | -15 |
+
+## Problema 2: Selección de Estrategia de Precios
+
+Una empresa de e-commerce va a lanzar una nueva línea de productos y debe seleccionar una **estrategia de precios** entre: **Precio Premium ($d_1$)**, **Precio Competitivo ($d_2$)** y **Precio de Penetración ($d_3$)**.  
+Los **estados de la naturaleza** (inciertos) representan la reacción del mercado: **Competencia Agresiva ($E_1$)**, **Competencia Moderada ($E_2$)** y **Competencia Pasiva ($E_3$)**.
+
+El objetivo es determinar la mejor alternativa utilizando la **función global** que devuelve todos los métodos en una única tabla, en **situación favorable** (cuota de mercado esperada, en %).
+
+| Alternativa | Competencia Agresiva ($E_1$) | Competencia Moderada ($E_2$) | Competencia Pasiva ($E_3$) |
+| :---: | :---: | :---: | :---: |
+| Precio Premium ($d_1$) | 8 | 14 | 22 |
+| Precio Competitivo ($d_2$) | 10 | 17 | 20 |
+| Precio de Penetración ($d_3$) | 13 | 19 | 24 |
 
 
